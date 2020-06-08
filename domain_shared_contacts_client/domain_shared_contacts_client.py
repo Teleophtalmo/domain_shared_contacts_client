@@ -56,15 +56,13 @@ class Client:
         contacts = self.gd_client.get_contacts(uri='https://www.google.com/m8/feeds/contacts/%s/full' % self.domain)
         return contacts
 
-    def create_contact(self, json_data):
+    def create_contact(self, contact_object):
         """
         Create a new contact from json data
         :param json_data:
         :return:
         """
-        if json_data is None:
-            raise ValueError('No path provided to a JSON file in the json_data parameter')
-        contact_object = json.load(open(json_data))
+
         new_contact = contacts_helper.create_contact_entry(contact_object)
         contact_entry = self.gd_client.CreateContact(
             insert_uri='https://www.google.com/m8/feeds/contacts/%s/full' % self.domain,
